@@ -1,0 +1,38 @@
+---
+title: "p8105_hw4_p2"
+author: "Yeyi Zhang"
+date: "10/25/2017"
+output: html_document
+---
+
+```{r setup}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r library}
+library(tidyverse)
+library(janitor)
+library(ggthemes)
+```
+
+1. Load and tidy the `pols-month.csv` and `GDP.csv` from fivethirtyeight datasets.
+
+```{r }
+pols = read_csv("./data/fivethirtyeight_datasets/pols-month.csv") %>% 
+  clean_names()
+
+gdp = read_csv("./data/fivethirtyeight_datasets/GDP.csv") %>% 
+  clean_names()
+```
+
+2. Combine the two sets based on the date / month.
+
+```{r combine}
+pols_tidy = pols %>% 
+  mutate(mon = lubridate::floor_date(mon, "month")) %>% 
+  rename(date = mon)
+
+data_combine = left_join(pols_tidy, gdp)
+```
+
+
