@@ -35,4 +35,25 @@ pols_tidy = pols %>%
 data_combine = left_join(pols_tidy, gdp)
 ```
 
+3. Create a plot showing the GDP value over time, including the party of the president.
 
+```{r plot}
+data_combine %>% 
+  filter(value != ".", !is.na(value)) %>%
+  separate(col = date, into = c("year", "month", "day")) %>%
+  mutate(value = as.numeric(value),
+         year = as.numeric(year),
+         president_party = as.character(prez_dem),
+         president_party = recode(president_party, "1" = "Democratic", "0" = "Republican")) %>% 
+  group_by(year, president_party) %>% 
+  summarize(mean_yr = mean(value)) %>% 
+  ggplot(aes(x = year, y = mean_yr, color = president_party, fill = president_party)) +
+    geom_col(aes(group = president_party)) +
+  labs(
+    title = "GDP Value over Year",
+    x = "Year",
+    y = "GDP Value",
+    caption = "Data from 538 dataset"
+  ) +
+  theme_bw()
+```
