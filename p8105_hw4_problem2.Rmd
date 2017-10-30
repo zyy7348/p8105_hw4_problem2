@@ -66,6 +66,6 @@ data_combine %>%
   theme_bw()
 ```
 
-3. Make conclusions of the results.
+4. Make conclusions of the results.
 * The value of __GDP__ went up before 1970s and decreasing afterwards.
 * The party of the presidents actually had effects on __GDP__ values, according to the plot.
