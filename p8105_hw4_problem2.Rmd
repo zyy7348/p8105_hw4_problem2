@@ -25,7 +25,7 @@ gdp = read_csv("./data/fivethirtyeight_datasets/GDP.csv") %>%
   clean_names()
 ```
 
-2. Combine the two sets based on the date / month.
+2. Combine the two sets based on the `date` / `month`.
 
 ```{r combine}
 pols_tidy = pols %>% 
@@ -36,6 +36,14 @@ data_combine = left_join(pols_tidy, gdp)
 ```
 
 3. Create a plot showing the GDP value over time, including the party of the president.
+
+```{r setup_plot}
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.asp = .6,
+  out.width = "90%"
+)
+```
 
 ```{r plot}
 data_combine %>% 
@@ -57,3 +65,7 @@ data_combine %>%
   ) +
   theme_bw()
 ```
+
+3. Make conclusions of the results.
+* The value of __GDP__ went up before 1970s and decreasing afterwards.
+* The party of the presidents actually had effects on __GDP__ values, according to the plot.
